@@ -1,0 +1,374 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* ============================================
+VARIABLES
+============================================ */
+:root {
+  --bg-page: #1a2a33;
+  --bg-card: #1f3641;
+  --bg-card-shadow: #15252d;
+  --first: #f2b137;
+  --first-active: #ffc860;
+  --second: #31c3bd;
+  --second-active: #65e9e4;
+  --third: #a8bfc9;
+  --third-active: #dbe8ed;
+  --font: #000;
+
+  --board-size: 460px;
+}
+
+/* NORMALIZE
+============================================ */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  letter-spacing: 2px;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg-page);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: none;
+  position: relative;
+
+  /* for show */
+  gap: 2rem;
+}
+
+/* Typography 
+============================================ */
+
+/* Links
+============================================ */
+
+/* Buttons
+============================================ */
+.btn:hover {
+  filter: brightness(1.2);
+  cursor: pointer;
+}
+.btn.restart {
+  width: 48px;
+  height: 48px;
+  background-color: var(--third);
+  border-radius: 10px;
+  box-shadow: 0px 4px #75858c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn.restart img {
+  width: 32px;
+  height: 24px;
+}
+.btn.newg {
+  height: 60px;
+  width: 460px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn.newg.cpu {
+  background-color: var(--first);
+  box-shadow: 0px 7px #a97b26;
+}
+.btn.newg.player {
+  background-color: var(--second);
+  box-shadow: 0px 7px #1d7571;
+}
+
+.btn.newg.cpu::before {
+  content: 'NEW GAME (VS CPU)';
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.btn.newg.player::before {
+  content: 'NEW GAME (VS PLAYER)';
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.btn.no {
+  height: 50px;
+  padding: 0 1.5rem;
+  border-radius: 10px;
+  background-color: var(--third);
+  box-shadow: 0 4px #75858c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.btn.yes {
+  height: 50px;
+  padding: 0 1.5rem;
+  border-radius: 10px;
+  background-color: var(--first);
+  box-shadow: 0 4px #a97b26;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.btn.player-mark {
+  height: 50px;
+  width: 190px;
+  border-radius: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn.player-mark img {
+  height: 32px;
+}
+.btn.player-mark.type-x {
+  background-color: var(--bg-page);
+}
+.btn.player-mark.type-o {
+  background-color: var(--third);
+}
+
+/* GAME START STATE
+============================================ */
+.container-card {
+  width: 100%;
+  max-width: 460px;
+  margin: 0 0.5rem;
+}
+.container-card.state-start {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+.container-card.state-start:not(.active) {
+  display: none;
+}
+.container-card .header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header #logo {
+  height: 52px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header img {
+  height: 32px;
+  padding: 0 0.25rem;
+}
+.container-card.state-start .player-select {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-card);
+  border-radius: 10px;
+  box-shadow: 0 8px #15252d;
+}
+.player-select .selection-message {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--third-active);
+  padding: 2rem 0;
+}
+.player-select .user-marks {
+  display: flex;
+  background-color: var(--bg-page);
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+.player-select .selection-reminder {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--third);
+  padding: 1.5rem 0;
+  text-align: center;
+}
+
+/* GAME BOARD
+============================================ */
+.container-card.game-board:not(.active) {
+  display: none;
+}
+.container-card.game-board .header {
+  justify-content: space-between;
+  position: relative;
+}
+.game-board .header .display-turn {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 170px;
+  height: 48px;
+  background-color: var(--bg-card);
+  border-radius: 10px;
+  box-shadow: 0 7px var(--bg-card-shadow);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.display-turn.x img:nth-child(2) {
+  display: none;
+}
+.display-turn:not(x) img:nth-child(1) {
+  display: inline-block;
+}
+.game-board .header .display-turn:not(.x) img:first-child {
+  display: none;
+}
+.game-board .header .display-turn img {
+  filter: brightness(1.3);
+}
+.game-board .header .display-turn div {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--third);
+  filter: brightness(1.3);
+}
+.game-board .game-board-grid {
+  display: grid;
+  width: var(--board-size);
+  height: var(--board-size);
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.game-board .game-board-grid div {
+  background-color: var(--bg-card);
+  box-shadow: 0 7px var(--bg-card-shadow);
+  border-radius: 7px;
+}
+.game-board.x .game-board-grid .space:not(.clicked):hover {
+  cursor: pointer;
+  filter: brightness(1.3);
+  background-image: url('../assets/icon-x-outline.svg'); /* The image used */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: 60%; /* Resize the background image to cover the entire container */
+}
+.game-board .game-board-grid .space:not(.clicked):hover {
+  cursor: pointer;
+  filter: brightness(1.3);
+  background-image: url('../assets/icon-o-outline.svg'); /* The image used */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: 60%; /* Resize the background image to cover the entire container */
+}
+
+.game-board .record-scores {
+  display: flex;
+  /* width: var(--board-size); */
+}
+.record-scores .score {
+  justify-content: space-between;
+  border-radius: 10px;
+  flex: 1;
+  padding: 0.5rem 0;
+}
+.score div {
+  text-align: center;
+}
+.score div:nth-child(2) {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.record-scores .record-you {
+  background-color: var(--second);
+}
+.record-scores .record-ties {
+  background-color: var(--third);
+  margin: 0 1rem;
+}
+.record-scores .record-cpu {
+  background-color: var(--first);
+}
+.record-scores .record-player2 {
+  display: none;
+}
+
+.place-x {
+  background-image: url('../assets/icon-x.svg'); /* The image used */
+  background-color: #cccccc; /* Used if the image is unavailable */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: 60%; /* Resize the background image to cover the entire container */
+}
+.place-o {
+  background-image: url('../assets/icon-o.svg'); /* The image used */
+  background-color: #cccccc; /* Used if the image is unavailable */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: 60%; /* Resize the background image to cover the entire container */
+}
+
+/* CONCLUSION STRIP
+============================================ */
+.conclusion-strip {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* height: 300px; */
+  width: 110vw;
+  background-color: var(--bg-card);
+  top: 50%;
+  transform: translate(0, -50%);
+  gap: 3rem;
+  padding: 3rem 0;
+  filter: brightness(1);
+  z-index: 1;
+}
+/* .conclusion-strip:not(.active) {
+  display: none;
+} */
+.conclusion-strip .msg {
+  font-size: 3rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+}
+.conclusion-strip.restart .msg {
+  color: var(--third);
+}
+.conclusion-strip.owins .msg {
+  color: var(--first);
+}
+.conclusion-strip.xwins .msg {
+  color: var(--second);
+}
+
+.conclusion-strip .msg img {
+  padding-right: 2rem;
+}
+
+.conclusion-strip .select-next {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+.conclusion-strip .btn {
+  width: fit-content;
+}

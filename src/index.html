@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>Tic Tac Toe</title>
+  </head>
+  <body id="body">
+    <!-- ----------------------------------- -->
+    <!-- NEW GAME STATE -->
+    <!-- ----------------------------------- -->
+    <!-- <div class="container-card state-start">
+      <div class="header">
+        <div id="logo">
+          <img src="./assets/icon-x.svg" alt="logo-x-icon" />
+          <img src="./assets/icon-o.svg" alt="logo-o-icon" />
+        </div>
+      </div>
+      <div class="player-select">
+        <div class="selection-message">PICK PLAYER 1'S MARK</div>
+        <div class="user-marks">
+          <div class="btn player-mark type-x">
+            <img src="./assets/icon-x-grey.svg" alt="select-x-icon" />
+          </div>
+          <div class="btn player-mark type-o">
+            <img src="./assets/icon-o-dark.svg" alt="select-o-icon" />
+          </div>
+        </div>
+        <div class="selection-reminder">REMEMBER: X GOES FIRST</div>
+      </div>
+
+      <div class="btn newg cpu"></div>
+      <div class="btn newg player"></div>
+    </div> -->
+
+    <!-- ----------------------------------- -->
+    <!-- GAME BOARD -->
+    <!-- ----------------------------------- -->
+    <div class="container-card game-board x active">
+      <div class="header">
+        <div id="logo">
+          <img src="./assets/icon-x.svg" alt="logo-x-icon" />
+          <img src="./assets/icon-o.svg" alt="logo-o-icon" />
+        </div>
+        <div class="display-turn x">
+          <img src="./assets/icon-x-grey.svg" alt="turn-x" />
+          <img src="./assets/icon-o-grey.svg" alt="turn-o" />
+          <div>'s TURN</div>
+        </div>
+        <div class="btn restart">
+          <img src="./assets/icon-restart.svg" alt="restart-icon" />
+        </div>
+      </div>
+      <div class="game-board-grid" id="board">
+        <div class="space"></div>
+        <div class="space"></div>
+        <div class="space"></div>
+        <div class="space"></div>
+        <div class="space"></div>
+        <div class="space"></div>
+        <div class="space"></div>
+        <div class="space"></div>
+        <div class="space"></div>
+      </div>
+      <div class="record-scores">
+        <div class="score record-you">
+          <div class="current-mark">X (YOU)</div>
+          <div class="score-you">0</div>
+        </div>
+        <div class="score record-ties">
+          <div>TIES</div>
+          <div class="score-ties">0</div>
+        </div>
+        <div class="score record-cpu">
+          <div class="current-mark-toggle">O (CPU)</div>
+          <div class="score-cpu">0</div>
+        </div>
+        <div class="score record-player2">
+          <div class="current-mark-toggle">O (Player 2)</div>
+          <div class="score-player2">0</div>
+        </div>
+      </div>
+    </div>
+    <!-- ----------------------------------- -->
+    <!-- GAME CONCLUSION STRIP-->
+    <!-- ----------------------------------- -->
+    <!-- <div class="conclusion-strip restart">
+      <div class="msg">RESTART GAME??</div>
+      <div class="select-next">
+        <div class="btn no">NO, CANCEL</div>
+        <div class="btn yes">YES, RESTART</div>
+      </div>
+    </div> -->
+
+    <!-- <div class="conclusion-strip owins">
+      <div class="msg">
+        <img src="./assets/icon-o.svg" alt="winner-o" /> TAKES THE ROUND
+      </div>
+      <div class="select-next">
+        <div class="btn no">QUIT</div>
+        <div class="btn yes">NEXT ROUND</div>
+      </div>
+    </div> -->
+
+    <!-- <div class="conclusion-strip xwins">
+      <div class="msg">
+        <img src="./assets/icon-x.svg" alt="winner-x" /> TAKES THE ROUND
+      </div>
+      <div class="select-next">
+        <div class="btn no">QUIT</div>
+        <div class="btn yes">NEXT ROUND</div>
+      </div>
+    </div> -->
+    <script src="./js/app.js"></script>
+  </body>
+</html>
