@@ -56,7 +56,7 @@ body {
 /* Buttons
 ============================================ */
 .btn:hover {
-  filter: brightness(1.2);
+  filter: brightness(1.3);
   cursor: pointer;
 }
 .btn.restart {
@@ -294,18 +294,15 @@ body {
   font-size: 1.2rem;
   font-weight: 500;
 }
-.record-scores .record-you {
+.record-scores .scoreX {
   background-color: var(--second);
 }
-.record-scores .record-ties {
+.record-scores .scoreTies {
   background-color: var(--third);
   margin: 0 1rem;
 }
-.record-scores .record-cpu {
+.record-scores .scoreO {
   background-color: var(--first);
-}
-.record-scores .record-player2 {
-  display: none;
 }
 
 .place-x {
@@ -350,7 +347,8 @@ body {
   display: flex;
   align-items: center;
 }
-.conclusion-strip.restart .msg {
+.conclusion-strip.restart .msg,
+.conclusion-strip.draw .msg {
   color: var(--third);
 }
 .conclusion-strip.owins .msg {
