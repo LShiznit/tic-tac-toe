@@ -1,5 +1,6 @@
 const body = document.querySelector('body')
 const spaces = document.querySelectorAll('.space')
+const restart = document.querySelector('.btn.restart')
 const TURN_X = 'place-x'
 const TURN_O = 'place-o'
 const WINNING_COMBOS = [
@@ -14,13 +15,49 @@ const WINNING_COMBOS = [
 ]
 const board = document.getElementById('board')
 const winningMessageElement = document.querySelector('.conclusion-strip')
-const turnPlace = []
-let scores = { scoreX: 0, ties: 0, scoreO: 0 }
+
+var scores = { scoreX: 0, ties: 0, scoreO: 0 }
+getStorage()
+
 let oTurn
+
 startGame()
+
+restart.addEventListener('click', () => {
+  const newDiv = document.createElement('div')
+  body.appendChild(newDiv).classList.add('conclusion-strip', 'draw')
+  const strip = document.querySelector('.conclusion-strip')
+  strip.innerHTML = `
+      <div class="conclusion-strip draw">
+      <div class="msg">¿RESTART GAME?</div>
+      <div class="select-next">
+        <div class="btn no">NO, CANCEL</div>
+        <div class="btn yes">YES, RESTART</div>
+      </div>
+      </div>
+    `
+  body.style.backgroundColor = '#141f26'
+  document.querySelector('.game-board').style.filter = 'brightness(.45)'
+  const yesRestart = document.querySelector('.yes')
+  yesRestart.addEventListener('click', () => {
+    strip.remove()
+    body.style.backgroundColor = '#1a2a33'
+    document.querySelector('.game-board').style.filter = 'brightness(1)'
+    starting.classList.add('active')
+    playing.classList.remove('active')
+  })
+  const noCancel = document.querySelector('.no')
+  noCancel.addEventListener('click', () => {
+    strip.remove()
+    body.style.backgroundColor = '#1a2a33'
+    document.querySelector('.game-board').style.filter = 'brightness(1)'
+  })
+})
+
 function startGame() {
   oTurn = false
   drawScores()
+
   swapTurnMsg()
   spaces.forEach((space) => {
     space.addEventListener('click', handleClick, { once: true })
@@ -28,11 +65,6 @@ function startGame() {
   spaces.forEach((space) => {
     space.classList.remove('place-x', 'place-o', 'clicked')
   })
-}
-function drawScores() {
-  document.querySelector('.scoreX .score-value').innerText = scores.scoreX
-  document.querySelector('.scoreTies .score-value').innerText = scores.ties
-  document.querySelector('.scoreO .score-value').innerText = scores.scoreO
 }
 function handleClick(e) {
   const space = e.target
@@ -47,6 +79,15 @@ function handleClick(e) {
     anounceDraw(checkDraw())
   }
   swapTurns()
+}
+function cpuMove() {
+  if (currentGame.gameType == 'cpu') {
+    if (
+      (currentGame.playerChoice == 'x' && oTurn == true) ||
+      (currentGame.playerChoice == 'o' && oTurn == false)
+    ) {
+    }
+  }
 }
 function placeMark(space, currentTurn) {
   space.classList.add(currentTurn)
@@ -91,16 +132,23 @@ function anounceDraw(tie) {
     `
     body.style.backgroundColor = '#141f26'
     document.querySelector('.game-board').style.filter = 'brightness(.45)'
-    spaces.forEach((space) => {
-      space.removeEventListener('click', handleClick, { once: true })
-    })
     const nextRound = document.querySelector('.yes')
     scores.ties++
+    currentGame.gameResult = 't'
+    pushStorage(scores)
     nextRound.addEventListener('click', () => {
       startGame()
       strip.remove()
       body.style.backgroundColor = '#1a2a33'
       document.querySelector('.game-board').style.filter = 'brightness(1)'
+    })
+    const quit = document.querySelector('.no')
+    quit.addEventListener('click', () => {
+      strip.remove()
+      body.style.backgroundColor = '#1a2a33'
+      document.querySelector('.game-board').style.filter = 'brightness(1)'
+      starting.classList.add('active')
+      playing.classList.remove('active')
     })
   }
 }
@@ -123,13 +171,23 @@ function anounceWin(currentTurn) {
     spaces.forEach((space) => {
       space.removeEventListener('click', handleClick, { once: true })
     })
-    const nextRound = document.querySelector('.yes')
     scores.scoreX++
+    currentGame.gameResult = 'x'
+    pushStorage(scores)
+    const nextRound = document.querySelector('.yes')
     nextRound.addEventListener('click', () => {
       startGame()
       strip.remove()
       body.style.backgroundColor = '#1a2a33'
       document.querySelector('.game-board').style.filter = 'brightness(1)'
+    })
+    const quit = document.querySelector('.no')
+    quit.addEventListener('click', () => {
+      strip.remove()
+      body.style.backgroundColor = '#1a2a33'
+      document.querySelector('.game-board').style.filter = 'brightness(1)'
+      starting.classList.add('active')
+      playing.classList.remove('active')
     })
   } else if (currentTurn == 'place-o') {
     body.appendChild(newDiv).classList.add('conclusion-strip', 'owins')
@@ -148,13 +206,23 @@ function anounceWin(currentTurn) {
     spaces.forEach((space) => {
       space.removeEventListener('click', handleClick, { once: true })
     })
-    const nextRound = document.querySelector('.yes')
     scores.scoreO++
+    pushStorage(scores)
+    currentGame.gameResult = 'o'
+    const nextRound = document.querySelector('.yes')
     nextRound.addEventListener('click', () => {
       startGame()
       strip.remove()
       body.style.backgroundColor = '#1a2a33'
       document.querySelector('.game-board').style.filter = 'brightness(1)'
+    })
+    const quit = document.querySelector('.no')
+    quit.addEventListener('click', () => {
+      strip.remove()
+      body.style.backgroundColor = '#1a2a33'
+      document.querySelector('.game-board').style.filter = 'brightness(1)'
+      starting.classList.add('active')
+      playing.classList.remove('active')
     })
   }
 }

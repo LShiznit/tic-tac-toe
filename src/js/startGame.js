@@ -3,10 +3,11 @@ const playing = document.querySelector('.game-board')
 
 const btnCPU = document.querySelector('.btn.newg.cpu')
 const btnPlayer = document.querySelector('.btn.newg.player')
-
-var player_choice = 'x'
-var game_type
-
+const currentGame = {
+  gameType: '',
+  playerChoice: 'x',
+  gameResult: 't',
+}
 // starting game
 starting.classList.add('active')
 playing.classList.remove('active')
@@ -39,7 +40,7 @@ optionO.addEventListener('mouseleave', function () {
   img.src = './assets/icon-x-grey.svg'
 })
 optionX.addEventListener('click', function () {
-  player_choice = 'x'
+  currentGame.playerChoice = 'x'
   let interval = setInterval(function () {
     blinker(optionX)
   }, 120)
@@ -49,7 +50,7 @@ optionX.addEventListener('click', function () {
   }, 500)
 })
 optionO.addEventListener('click', function () {
-  player_choice = 'o'
+  currentGame.playerChoice = 'o'
   optionX.style.filter = 'brightness( 1 )'
   let interval = setInterval(function () {
     blinker(optionO)
@@ -66,15 +67,55 @@ function blinker(element) {
     element.style.filter = 'brightness(1.3)'
   }, 30)
 }
-btnCPU.addEventListener('click', function () {
-  game_type = 'cpu'
-  cssGameSwitch()
-})
 btnPlayer.addEventListener('click', function () {
-  game_type = 'player'
+  currentGame.gameType = 'player'
   cssGameSwitch()
+  drawPlayer()
+})
+btnCPU.addEventListener('click', function () {
+  currentGame.gameType = 'cpu'
+  cssGameSwitch()
+  drawPlayer()
 })
 function cssGameSwitch() {
   starting.classList.remove('active')
   playing.classList.add('active')
+}
+function getStorage() {
+  if (localStorage.length > 2) {
+    scores.scoreX = localStorage.scoreX
+    scores.ties = localStorage.ties
+    scores.scoreO = localStorage.scoreO
+  } else {
+    scores = { scoreX: 0, ties: 0, scoreO: 0 }
+  }
+}
+function pushStorage() {
+  localStorage.setItem('scoreX', scores.scoreX)
+  localStorage.setItem('ties', scores.ties)
+  localStorage.setItem('scoreO', scores.scoreO)
+}
+function drawScores() {
+  document.querySelector('.scoreX .score-value').innerText = scores.scoreX
+  document.querySelector('.scoreTies .score-value').innerText = scores.ties
+  document.querySelector('.scoreO .score-value').innerText = scores.scoreO
+}
+function drawPlayer() {
+  const userX = document.querySelector('.scoreX .current-mark')
+  const userO = document.querySelector('.scoreO .current-mark')
+  if (currentGame.playerChoice == 'x') {
+    userX.innerText = 'X (YOU)'
+    if (currentGame.gameType == 'player') {
+      userO.innerText = 'O (Player 2)'
+    } else if (currentGame.gameType == 'cpu') {
+      userO.innerText = 'O (CPU)'
+    }
+  } else if (currentGame.playerChoice == 'o') {
+    userO.innerText = 'O (YOU)'
+    if (currentGame.gameType == 'player') {
+      userX.innerText = 'O (Player 2)'
+    } else if (currentGame.gameType == 'cpu') {
+      userX.innerText = 'O (CPU)'
+    }
+  }
 }
