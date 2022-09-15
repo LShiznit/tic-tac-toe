@@ -15,6 +15,8 @@ playing.classList.remove('active')
 // defaul player 1 pick
 const optionX = document.querySelector('.player-mark.type-x')
 const optionO = document.querySelector('.player-mark.type-o')
+optionX.style.filter = 'brightness = 1'
+optionO.style.filter = 'brightness = 1'
 optionX.addEventListener('mouseover', function () {
   let offStyles = `
   background-color: #1a2a33;
@@ -71,11 +73,13 @@ btnPlayer.addEventListener('click', function () {
   currentGame.gameType = 'player'
   cssGameSwitch()
   drawPlayer()
+  startGame(currentGame)
 })
 btnCPU.addEventListener('click', function () {
   currentGame.gameType = 'cpu'
   cssGameSwitch()
   drawPlayer()
+  startGame(currentGame)
 })
 function cssGameSwitch() {
   starting.classList.remove('active')
