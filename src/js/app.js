@@ -63,6 +63,8 @@ function handleClick(e) {
   if (currentGame.gameType == 'cpu' && currentGame.gameResult == '') {
     swapTurns()
     cpuTurn(currentGame)
+  } else {
+    swapTurns()
   }
 }
 function cpuTurn(currentGame) {
