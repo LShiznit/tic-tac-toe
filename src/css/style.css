@@ -376,7 +376,7 @@ body {
 /* ************   MEDIA QUERY MOBILE    ************* */
 /* ************************************************** */
 /* ************************************************** */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px) and (min-width: 340px) {
   :root {
     --board-size: 90vw;
   }
@@ -388,6 +388,119 @@ body {
     font-size: 14px;
     letter-spacing: 1.5px;
     gap: 1rem;
+  }
+
+  /* Buttons
+  ============================================ */
+
+  body .btn.newg {
+    width: 85vw;
+    justify-content: center;
+    align-items: center;
+  }
+
+  body .btn.newg.cpu::before {
+    font-size: 1.3rem;
+  }
+  body .btn.newg.player::before {
+    font-size: 1.3rem;
+  }
+
+  body .btn.player-mark {
+    height: 50px;
+    width: calc((85vw - 2rem) / 2);
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .btn.player-mark img {
+    height: 26px;
+  }
+
+  /* GAME START STATE
+  ============================================ */
+  .container-card {
+    width: 90%;
+    max-width: 460px;
+  }
+  .container-card.state-start {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    justify-content: center;
+    align-items: center;
+  }
+  .container-card.state-start:not(.active) {
+    display: none;
+  }
+  .container-card .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .header #logo {
+    height: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .header img {
+    height: 32px;
+    padding: 0 0.25rem;
+  }
+  .container-card.state-start .player-select {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-card);
+    border-radius: 10px;
+    box-shadow: 0 8px #15252d;
+
+    width: 85vw;
+  }
+  .player-select .selection-message {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--third-active);
+    padding: 2rem 0;
+  }
+  .player-select .user-marks {
+    display: flex;
+    background-color: var(--bg-page);
+    padding: 0.5rem;
+    border-radius: 8px;
+  }
+  .player-select .selection-reminder {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--third);
+    padding: 1.5rem 0;
+    text-align: center;
+  }
+
+  /* GAME BOARD
+  ============================================ */
+  .container-card.game-board:not(.active) {
+    display: none;
+  }
+  .container-card.game-board .header {
+    justify-content: space-between;
+    position: relative;
+  }
+  .game-board .header .display-turn {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 170px;
+    height: 48px;
+    background-color: var(--bg-card);
+    border-radius: 10px;
+    box-shadow: 0 7px var(--bg-card-shadow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   /* Buttons
@@ -463,87 +576,6 @@ body {
   }
   .btn.player-mark.type-o {
     background-color: var(--third);
-  }
-
-  /* GAME START STATE
-  ============================================ */
-  .container-card {
-    width: 90%;
-    max-width: 460px;
-  }
-  .container-card.state-start {
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-  }
-  .container-card.state-start:not(.active) {
-    display: none;
-  }
-  .container-card .header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .header #logo {
-    height: 52px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .header img {
-    height: 32px;
-    padding: 0 0.25rem;
-  }
-  .container-card.state-start .player-select {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--bg-card);
-    border-radius: 10px;
-    box-shadow: 0 8px #15252d;
-  }
-  .player-select .selection-message {
-    font-size: 1.2rem;
-    font-weight: 400;
-    color: var(--third-active);
-    padding: 2rem 0;
-  }
-  .player-select .user-marks {
-    display: flex;
-    background-color: var(--bg-page);
-    padding: 0.5rem;
-    border-radius: 8px;
-  }
-  .player-select .selection-reminder {
-    font-size: 1rem;
-    font-weight: 400;
-    color: var(--third);
-    padding: 1.5rem 0;
-    text-align: center;
-  }
-
-  /* GAME BOARD
-  ============================================ */
-  .container-card.game-board:not(.active) {
-    display: none;
-  }
-  .container-card.game-board .header {
-    justify-content: space-between;
-    position: relative;
-  }
-  .game-board .header .display-turn {
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0);
-    width: 170px;
-    height: 48px;
-    background-color: var(--bg-card);
-    border-radius: 10px;
-    box-shadow: 0 7px var(--bg-card-shadow);
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 
   /* CONCLUSION STRIP
