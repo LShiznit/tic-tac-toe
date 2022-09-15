@@ -25,10 +25,8 @@ function startGame(currentGame) {
   if (document.querySelector('.conclusion-strip') == true) {
     document.querySelector('.conclusion-strip').remove()
   }
-
   oTurn = false
   let currentTurn = oTurn ? TURN_O : TURN_X
-  let cpuMove
   posSpaces = [0, 1, 2, 3, 4, 5, 6, 7, 8]
   spaces.forEach((space) => {
     space.classList.remove('place-x', 'place-o', 'clicked')
@@ -70,6 +68,7 @@ function handleClick(e) {
 function cpuTurn(currentGame) {
   let currentTurn = oTurn ? TURN_O : TURN_X
   if (posSpaces.length > 0) {
+    let cpuMove
     cpuMove = randomValidInteger()
     let cpuSelector = '.space.a' + posSpaces[cpuMove]
     let cpuSpace = document.querySelector(cpuSelector)
