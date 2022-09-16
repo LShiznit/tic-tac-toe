@@ -140,6 +140,7 @@ body {
 }
 .btn.player-mark.type-x {
   background-color: var(--bg-page);
+  filter: brightness(1);
 }
 .btn.player-mark.type-o {
   background-color: var(--third);
@@ -268,7 +269,7 @@ body {
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: 60%; /* Resize the background image to cover the entire container */
 }
-.game-board .game-board-grid .space:not(.clicked):hover {
+.game-board:not(.x) .game-board-grid .space:not(.clicked):hover {
   cursor: pointer;
   filter: brightness(1.3);
   background-image: url('../assets/icon-o-outline.svg'); /* The image used */

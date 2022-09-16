@@ -21,6 +21,8 @@ var scores = { scoreX: 0, ties: 0, scoreO: 0 }
 getStorage()
 let oTurn
 
+console.log(spaces)
+
 function startGame(currentGame) {
   if (document.querySelector('.conclusion-strip') == true) {
     document.querySelector('.conclusion-strip').remove()
@@ -31,6 +33,7 @@ function startGame(currentGame) {
   spaces.forEach((space) => {
     space.classList.remove('place-x', 'place-o', 'clicked')
   })
+  document.querySelector('.game-board').classList.add('x')
   currentGame.gameResult = ''
   drawScores()
   swapTurnMsg()
